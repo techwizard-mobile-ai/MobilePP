@@ -1,0 +1,8 @@
+User Stories 
+1.) As a homeowner, I would like the product to alert me to any fires in my house. It must be reliable and quick for the product to be useful.
+
+2.) As a landlord, I would like the product to quickly and accurately detect any smoke in my apartments for a variety of reasons.
+
+3.) As a gardener, I would like to monitor the internal air quality (Temperature/Pressure/Humidity) of my greenhouse. The products readings must be consistent and accurate. 
+
+4.) As a homeowner, I would like to monitor any potentially dangerous gas leaks that could be occuring in my home. Readings must be accurate and notify me immediately.
