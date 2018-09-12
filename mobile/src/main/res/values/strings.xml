@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AirVengeance</string>
+    <string name="temperature_reading">Temperature: %1$s\u00B0</string>
+    <string name="humidity_reading">Humidity: %1$s</string>
 </resources>
