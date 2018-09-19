@@ -2,9 +2,11 @@ package com.tsquaredapplications.airvengeance
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_main.*
+import com.tsquaredapplications.airvengeance.presenters.PreferenceFragment
+import com.tsquaredapplications.airvengeance.presenters.ReadingsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,10 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        temperature_tv.text = getString(R.string.temperature_reading, "24")
-        humidity_tv.text = getString(R.string.humidity_reading, "56")
-        pressure_tv.text = getString(R.string.pressure_reading, "20")
-        pm2_5_tv.text = getString(R.string.pm25_reading, "20")
+        // load readings fragment by default
+        swapFragments(ReadingsFragment(), true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -26,9 +26,26 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.action_settings -> {
-
+                swapFragments(PreferenceFragment(), true)
             }
         }
         return true
+    }
+
+    fun swapFragments(fragment: Fragment, addToBackStack: Boolean) {
+        when (addToBackStack) {
+            true -> {
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, fragment)
+                        .addToBackStack(null)
+                        .commit()
+            }
+            false -> {
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, fragment)
+                        .disallowAddToBackStack()
+                        .commit()
+            }
+        }
     }
 }
