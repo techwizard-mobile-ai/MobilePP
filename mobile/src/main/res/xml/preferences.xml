@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:title="Units">
@@ -9,6 +10,49 @@
             android:summaryOn="@string/celsius"
             android:summaryOff="@string/fahrenheit"
             android:defaultValue="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Preferences">
+        <EditTextPreference
+            android:key="@string/minimum_temp"
+            android:summary="Tap to Change Minimum Temperature"
+            android:title="Minimum Temperature"
+            android:defaultValue="68"/>
+
+        <EditTextPreference
+            android:key="@string/maximum_temp"
+            android:summary="Tap to Change Maximum Temperature"
+            android:title="Maximum Temperature"
+            android:defaultValue="75"/>
+
+        <EditTextPreference
+            android:key="@string/minimum_humid"
+            android:summary="Tap to Change Minimum Humidity"
+            android:title="Minimum Humidity"
+            android:defaultValue="20"/>
+
+        <EditTextPreference
+            android:key="@string/maximum_humid"
+            android:summary="Tap to Change Minimum Temperature"
+            android:title="Maximum Humidity"
+            android:defaultValue="40"/>
+
+        <EditTextPreference
+            android:key="@string/minimum_press"
+            android:summary="Tap to Change Minimum Pressure"
+            android:title="Minimum Pressure"
+            android:defaultValue="15.0"/>
+
+        <EditTextPreference
+            android:key="@string/maximum_press"
+            android:summary="Tap to Change Maximum Pressure"
+            android:title="Maximum Pressure"
+            android:defaultValue="25.0"/>
+
+
+
+
     </PreferenceCategory>
 
 
