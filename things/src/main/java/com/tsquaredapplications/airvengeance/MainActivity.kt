@@ -15,6 +15,7 @@ import java.io.IOException
 import android.os.SystemClock
 import android.os.Handler
 import com.google.android.things.pio.PeripheralManager
+import com.tsquaredapplications.airvengeance.objects.Data
 import java.util.concurrent.TimeUnit
 
 
@@ -222,6 +223,10 @@ class MainActivity : Activity() {
                         pressure,
                         pm25,
                         pm10))
+
+                val data = Data(temperature, humidity, pressure, pm25, pm10)
+
+
 
                 mHandler?.postAtTime(this, mDoSampleToken,
                         SystemClock.uptimeMillis() + SAMPLE_INTERVAL_MS)
