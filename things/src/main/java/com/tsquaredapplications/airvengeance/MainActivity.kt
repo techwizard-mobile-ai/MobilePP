@@ -14,10 +14,10 @@ import android.util.Log
 import java.io.IOException
 import android.os.SystemClock
 import android.os.Handler
-import com.google.android.things.pio.PeripheralManager
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.tsquaredapplications.airvengeance.objects.Data
+import com.tsquaredapplications.airvengeance.objects.Repository
 import java.util.concurrent.TimeUnit
 
 
@@ -25,36 +25,37 @@ private val TAG = MainActivity::class.java.simpleName
 
 class MainActivity : Activity() {
 
-    private val SUPPORTED_SENSORS = HashSet<Int>()
-    var mBmx280SensorDriver: Bmx280SensorDriver? = null
-    var mHpmDriver: HpmSensorDriver? = null
+    companion object {
+        private const val SAMPLE_INTERVAL_MS = 10000
+        private const val BMX280_I2C_BUS_NAME = "I2C1"
+        private const val HPM_SENSOR_UART_NAME = "UART1"
+    }
+
+    private val supportedSensors = HashSet<Int>()
+    lateinit var bmx280SensorDriver: Bmx280SensorDriver
+    lateinit var hpmDriver: HpmSensorDriver
 
     // Instance of sensor manager
-    private var mSensorManager: SensorManager? = null
-    private var mHandler: Handler? = null
-    private var mDoSampleToken = Any()
+    lateinit var sensorManager: SensorManager
+    lateinit var handler: Handler
+    private var doSampleToken = Any()
 
-    private val SAMPLE_INTERVAL_MS = 10000
-    private val BMX280_I2C_BUS_NAME = "I2C1"
-    private val HPM_SENSOR_UART_NAME = "UART1"
-
-    private var mDatbase: DatabaseReference? = null
+    // Repository for Firebase DB interaction
+    lateinit var repo: Repository
 
     inner class SensorData {
-
-
         internal var temperature: Float = 0.toFloat()
-        internal var temperature_timestamp: Long = 0
+        internal var temperatureTimestamp: Long = 0
 
         internal var humidity: Float = 0.toFloat()
-        internal var humidity_timestamp: Long = 0
+        internal var humidityTimestamp: Long = 0
 
         internal var pressure: Float = 0.toFloat()
-        internal var pressure_timestamp: Long = 0
+        internal var pressureTimestamp: Long = 0
 
         var pm25: Int = 0
         var pm10: Int = 0
-        internal var particle_timestamp: Long = 0
+        internal var particleTimestamp: Long = 0
     }
 
     var mSensorData: SensorData = SensorData()
@@ -67,43 +68,40 @@ class MainActivity : Activity() {
             when (event?.sensor?.type) {
                 Sensor.TYPE_AMBIENT_TEMPERATURE -> {
                     mSensorData.temperature = event.values[0]
-                    mSensorData.temperature_timestamp = event.timestamp
+                    mSensorData.temperatureTimestamp = event.timestamp
 
                 }
                 Sensor.TYPE_RELATIVE_HUMIDITY -> {
                     mSensorData.humidity = event.values[0]
-                    mSensorData.humidity_timestamp = event.timestamp
+                    mSensorData.humidityTimestamp = event.timestamp
                 }
                 Sensor.TYPE_PRESSURE -> {
                     mSensorData.pressure = event.values[0]
-                    mSensorData.pressure_timestamp = event.timestamp
+                    mSensorData.pressureTimestamp = event.timestamp
                 }
                 Sensor.TYPE_DEVICE_PRIVATE_BASE -> {
                     if (HpmSensorDriver.SENSOR_STRING_TYPE.equals(event.sensor.stringType)) {
                         mSensorData.pm25 = event.values[0].toInt()
                         mSensorData.pm10 = event.values[1].toInt()
-                        mSensorData.particle_timestamp = event.timestamp
+                        mSensorData.particleTimestamp = event.timestamp
                     }
                 }
             }
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-        Log.i("MainActivity", "onCreate: IN ON CREATE")
-        val manager = PeripheralManager.getInstance()
 
-        SUPPORTED_SENSORS.add(Sensor.TYPE_AMBIENT_TEMPERATURE)
-        SUPPORTED_SENSORS.add(Sensor.TYPE_RELATIVE_HUMIDITY)
-        SUPPORTED_SENSORS.add(Sensor.TYPE_PRESSURE)
-        SUPPORTED_SENSORS.add(Sensor.TYPE_DEVICE_PRIVATE_BASE)
-        mHandler = Handler()
+        supportedSensors.add(Sensor.TYPE_AMBIENT_TEMPERATURE)
+        supportedSensors.add(Sensor.TYPE_RELATIVE_HUMIDITY)
+        supportedSensors.add(Sensor.TYPE_PRESSURE)
+        supportedSensors.add(Sensor.TYPE_DEVICE_PRIVATE_BASE)
+
+        repo = Repository()
+
+        handler = Handler()
         registerSensors()
-        initDb()
-
         startDataCollection()
     }
 
@@ -115,12 +113,12 @@ class MainActivity : Activity() {
     }
 
     private fun registerSensors() {
-        mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-        mSensorManager?.registerDynamicSensorCallback(object : SensorManager.DynamicSensorCallback() {
+        sensorManager.registerDynamicSensorCallback(object : SensorManager.DynamicSensorCallback() {
             override fun onDynamicSensorConnected(sensor: Sensor) {
-                if (SUPPORTED_SENSORS.contains(sensor.type)) {
-                    mSensorManager?.registerListener(mSensorEventListener, sensor,
+                if (supportedSensors.contains(sensor.type)) {
+                    sensorManager.registerListener(mSensorEventListener, sensor,
                             SensorManager.SENSOR_DELAY_NORMAL)
                 }
             }
@@ -128,10 +126,10 @@ class MainActivity : Activity() {
 
         // Register Temperature, Humidity, and Pressure sensor
         try {
-            mBmx280SensorDriver = Bmx280SensorDriver(BMX280_I2C_BUS_NAME)
-            mBmx280SensorDriver?.registerTemperatureSensor()
-            mBmx280SensorDriver?.registerHumiditySensor()
-            mBmx280SensorDriver?.registerPressureSensor()
+            bmx280SensorDriver = Bmx280SensorDriver(BMX280_I2C_BUS_NAME)
+            bmx280SensorDriver.registerTemperatureSensor()
+            bmx280SensorDriver.registerHumiditySensor()
+            bmx280SensorDriver.registerPressureSensor()
         } catch (e: IOException) {
             Log.e(TAG, "Error registering BMX280 sensor")
         }
@@ -139,68 +137,53 @@ class MainActivity : Activity() {
 
         // Register HPM particle sensor driver
         try {
-            mHpmDriver = HpmSensorDriver(HPM_SENSOR_UART_NAME)
-            mHpmDriver?.registerParticleSensor()
+            hpmDriver = HpmSensorDriver(HPM_SENSOR_UART_NAME)
+            hpmDriver.registerParticleSensor()
         } catch (e: IOException) {
             Log.e(TAG, "Error registering HPM sensor driver")
         }
     }
 
     private fun unregisterSensors() {
-        mSensorManager?.unregisterListener(mSensorEventListener)
-        if (mBmx280SensorDriver != null) {
-            mBmx280SensorDriver?.unregisterTemperatureSensor()
-            mBmx280SensorDriver?.unregisterHumiditySensor()
-            mBmx280SensorDriver?.unregisterPressureSensor()
-            try {
-                mBmx280SensorDriver?.close()
-            } catch (e: IOException) {
-                Log.e(TAG, "Error closing BMX280 sensor")
-            }
+        sensorManager.unregisterListener(mSensorEventListener)
 
-        }
-        if (mHpmDriver != null) {
-            mHpmDriver?.unregisterParticleSensor()
-            try {
-                mHpmDriver?.close()
-            } catch (e: IOException) {
-                Log.e(TAG, "Error closing GPS driver")
-            }
+        bmx280SensorDriver.unregisterTemperatureSensor()
+        bmx280SensorDriver.unregisterHumiditySensor()
+        bmx280SensorDriver.unregisterPressureSensor()
+        bmx280SensorDriver.close()
 
-        }
+        hpmDriver.unregisterParticleSensor()
+        hpmDriver.close()
+
     }
 
 
-    fun initDb(){
-        mDatbase = FirebaseDatabase.getInstance().reference
-                .child("DATA")
-    }
     private fun startDataCollection() {
         val doDataCollection = object : Runnable {
             private fun toOld(timestamp: Long): Boolean {
-                val timestamp_ms = TimeUnit.NANOSECONDS.toMillis(timestamp)
-                return SystemClock.uptimeMillis() - timestamp_ms > SAMPLE_INTERVAL_MS
+                val timestampMs = TimeUnit.NANOSECONDS.toMillis(timestamp)
+                return SystemClock.uptimeMillis() - timestampMs > SAMPLE_INTERVAL_MS
             }
 
             override fun run() {
                 // Record a null reading if the sensor data is too old.
-                val temperature = (if (toOld(mSensorData.temperature_timestamp))
+                val temperature = (if (toOld(mSensorData.temperatureTimestamp))
                     null
                 else
                     mSensorData.temperature)?.toFloat()
-                val humidity = (if (toOld(mSensorData.humidity_timestamp))
+                val humidity = (if (toOld(mSensorData.humidityTimestamp))
                     null
                 else
                     mSensorData.humidity)?.toFloat()
-                val pressure = (if (toOld(mSensorData.pressure_timestamp))
+                val pressure = (if (toOld(mSensorData.pressureTimestamp))
                     null
                 else
                     mSensorData.pressure)?.toFloat()
-                val pm25 = (if (toOld(mSensorData.particle_timestamp))
+                val pm25 = (if (toOld(mSensorData.particleTimestamp))
                     null
                 else
                     mSensorData.pm25)?.toInt()
-                val pm10 = (if (toOld(mSensorData.particle_timestamp))
+                val pm10 = (if (toOld(mSensorData.particleTimestamp))
                     null
                 else
                     mSensorData.pm10)?.toInt()
@@ -234,16 +217,14 @@ class MainActivity : Activity() {
                         pm25,
                         pm10))
 
-                val data = Data(temperature, humidity, pressure, pm25, pm10)
-                val newRef = mDatbase?.push()
-                newRef?.setValue(data)
+                repo.push(Data(temperature, humidity, pressure, pm25, pm10))
 
 
-                mHandler?.postAtTime(this, mDoSampleToken,
+                handler.postAtTime(this, doSampleToken,
                         SystemClock.uptimeMillis() + SAMPLE_INTERVAL_MS)
             }
         }
-        mHandler?.postAtTime(doDataCollection, mDoSampleToken,
+        handler.postAtTime(doDataCollection, doSampleToken,
                 SystemClock.uptimeMillis() + SAMPLE_INTERVAL_MS)
     }
 
