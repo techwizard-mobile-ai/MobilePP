@@ -15,6 +15,8 @@ import java.io.IOException
 import android.os.SystemClock
 import android.os.Handler
 import com.google.android.things.pio.PeripheralManager
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.tsquaredapplications.airvengeance.objects.Data
 import java.util.concurrent.TimeUnit
 
@@ -36,7 +38,7 @@ class MainActivity : Activity() {
     private val BMX280_I2C_BUS_NAME = "I2C1"
     private val HPM_SENSOR_UART_NAME = "UART1"
 
-    private var mDatbase: FirebaseDa
+    private var mDatbase: DatabaseReference? = null
 
     inner class SensorData {
 
@@ -100,6 +102,7 @@ class MainActivity : Activity() {
         SUPPORTED_SENSORS.add(Sensor.TYPE_DEVICE_PRIVATE_BASE)
         mHandler = Handler()
         registerSensors()
+        initDb()
 
         startDataCollection()
     }
@@ -167,6 +170,11 @@ class MainActivity : Activity() {
         }
     }
 
+
+    fun initDb(){
+        mDatbase = FirebaseDatabase.getInstance().reference
+                .child("DATA")
+    }
     private fun startDataCollection() {
         val doDataCollection = object : Runnable {
             private fun toOld(timestamp: Long): Boolean {
@@ -227,7 +235,8 @@ class MainActivity : Activity() {
                         pm10))
 
                 val data = Data(temperature, humidity, pressure, pm25, pm10)
-
+                val newRef = mDatbase?.push()
+                newRef?.setValue(data)
 
 
                 mHandler?.postAtTime(this, mDoSampleToken,
