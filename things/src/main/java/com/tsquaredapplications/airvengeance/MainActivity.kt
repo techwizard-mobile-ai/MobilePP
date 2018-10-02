@@ -36,6 +36,8 @@ class MainActivity : Activity() {
     private val BMX280_I2C_BUS_NAME = "I2C1"
     private val HPM_SENSOR_UART_NAME = "UART1"
 
+    private var mDatbase: FirebaseDa
+
     inner class SensorData {
 
 

@@ -38,4 +38,8 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:1.1.1"
 
     implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
 }
+
+
+apply plugin: 'com.google.gms.google-services'
