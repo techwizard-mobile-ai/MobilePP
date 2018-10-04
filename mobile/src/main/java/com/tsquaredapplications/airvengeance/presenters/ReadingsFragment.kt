@@ -24,8 +24,6 @@ class ReadingsFragment : Fragment() {
     }
 
 
-
-
     override fun onResume() {
         super.onResume()
         val tempUnitLabel = if(viewModel.isMetric()) 'C' else 'F'
