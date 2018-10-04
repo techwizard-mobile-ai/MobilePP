@@ -1,6 +1,7 @@
 package com.tsquaredapplications.airvengeance.presenters
 
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -29,9 +30,11 @@ class ReadingsFragment : Fragment() {
         super.onResume()
         val tempUnitLabel = if(viewModel.isMetric()) 'C' else 'F'
 
-        temperature_tv.text = getString(R.string.temperature_reading, viewModel.getTempReading(), tempUnitLabel)
+
         humidity_tv.text = getString(R.string.humidity_reading, viewModel.humidity.toString())
         pressure_tv.text = getString(R.string.pressure_reading, viewModel.pressure.toString())
         pm2_5_tv.text = getString(R.string.pm25_reading, viewModel.pm25.toString())
+
+
     }
 }

@@ -2,6 +2,8 @@ package com.tsquaredapplications.airvengeance.data
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.tsquaredapplications.airvengeance.R
@@ -16,6 +18,8 @@ class ReadingsViewModel(application: Application): AndroidViewModel(application)
     private val prefs = PreferenceManager.getDefaultSharedPreferences(application)
     private val isMetricKey = application.getString(R.string.is_metric_key)
 
+    private val dataRepo: DataRepository
+
     init {
 
         isMetric = prefs.getBoolean(isMetricKey, true)
@@ -24,6 +28,7 @@ class ReadingsViewModel(application: Application): AndroidViewModel(application)
         pressure = 20.2
         pm25 = 20.1
 
+        dataRepo = DataRepository()
     }
 
     fun getPrefs(){
@@ -40,6 +45,9 @@ class ReadingsViewModel(application: Application): AndroidViewModel(application)
         return isMetric
     }
 
+    fun getDataStream(): MutableLiveData<List<Data>> {
+        return dataRepo.getDataStream()
+    }
 
 
 }

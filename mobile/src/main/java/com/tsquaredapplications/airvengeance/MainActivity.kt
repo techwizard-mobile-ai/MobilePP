@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
+import com.google.firebase.FirebaseApp
 import com.tsquaredapplications.airvengeance.presenters.PreferenceFragment
 import com.tsquaredapplications.airvengeance.presenters.ReadingsFragment
 
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        FirebaseApp.initializeApp(this)
 
         // load readings fragment by default
         swapFragments(ReadingsFragment(), true)
