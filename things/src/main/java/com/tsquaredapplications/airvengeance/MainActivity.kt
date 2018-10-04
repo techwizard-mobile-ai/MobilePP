@@ -14,8 +14,6 @@ import android.util.Log
 import java.io.IOException
 import android.os.SystemClock
 import android.os.Handler
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.tsquaredapplications.airvengeance.objects.Data
 import com.tsquaredapplications.airvengeance.objects.Repository
 import java.util.concurrent.TimeUnit
