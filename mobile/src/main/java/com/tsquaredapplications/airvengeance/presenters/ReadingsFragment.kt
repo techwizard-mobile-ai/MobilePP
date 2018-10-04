@@ -29,14 +29,27 @@ class ReadingsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val tempUnitLabel = if(viewModel.isMetric()) 'C' else 'F'
-        humidity_tv.text = getString(R.string.humidity_reading, viewModel.humidity.toString())
-        pressure_tv.text = getString(R.string.pressure_reading, viewModel.pressure.toString())
-        pm2_5_tv.text = getString(R.string.pm25_reading, viewModel.pm25.toString())
 
         viewModel.getDataStream().observe(this, Observer {
             it?.let { nonNullList ->
                 val recentData = nonNullList[nonNullList.size - 1]
-                temperature_tv.text = getString(R.string.temperature_reading, recentData.temp.toString(), tempUnitLabel)
+
+                recentData.temp?.let { temp->
+                    temperature_tv.text =
+                            getString(R.string.temperature_reading,
+                                    viewModel.getTempReading(temp), tempUnitLabel)
+                }
+
+                recentData.humidity?.let { humidity ->
+                    humidity_tv.text = getString(R.string.humidity_reading, humidity.toString())
+                }
+
+                recentData.pressure?.let { pressure ->
+                    pressure_tv.text = getString(R.string.pressure_reading, pressure.toString())
+                }
+
+                // TODO add PM25 and PM10 once particle sensor is added
+
             }
         })
     }
