@@ -20,6 +20,7 @@
     <string name="maximum_humid">Maximum Humidity</string>
     <string name="minimum_press">Minimum Pressure</string>
     <string name="maximum_press">Maximum Pressure</string>
+    <string name="zip_code">Zip Code</string>
     <string name="title_activity_prefs">Preferences</string>
 
     <!-- Strings related to Settings -->

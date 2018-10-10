@@ -11,6 +11,15 @@
             android:summaryOff="@string/fahrenheit"
             android:defaultValue="true"/>
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Zip Code for Weather Reading">
+        <EditTextPreference
+            android:key="Zip Code"
+            android:title="Zip Code"
+            android:defaultValue="14224"
+            android:summary="Tap here to enter Zip Code"/>
+
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:title="Preferences">
@@ -56,6 +65,7 @@
             android:title="Maximum Pressure"
             android:defaultValue="25"
             android:inputType="number"/>
+
 
     </PreferenceCategory>
 
