@@ -33,21 +33,25 @@ class ReadingsFragment : Fragment() {
                 val recentData = nonNullList[nonNullList.size - 1]
 
                 recentData.temp?.let { temp->
-                    temperature_tv.text =
-                            getString(R.string.temperature_reading,
-                                    viewModel.getTempReading(temp), tempUnitLabel)
+                    temperature_gauge.setSpeed(temp)
+                    temperature_gauge.setSpeed(temp)
                 }
 
                 recentData.humidity?.let { humidity ->
-                    humidity_tv.text = getString(R.string.humidity_reading, humidity.toString())
+                    humidity_gauge.setSpeed(humidity)
                 }
 
                 recentData.pressure?.let { pressure ->
-                    pressure_tv.text = getString(R.string.pressure_reading, pressure.toString())
+                    pressure_gauge.setSpeed(pressure)
                 }
 
-                // TODO add PM25 and PM10 once particle sensor is added
+                recentData.pm25?.let { pm25 ->
+                    pm25_gauge.setSpeed(pm25.toFloat())
+                }
 
+                recentData.pm10?.let { pm10 ->
+                    pm10_gauge.setSpeed(pm10.toFloat())
+                }
             }
         })
     }

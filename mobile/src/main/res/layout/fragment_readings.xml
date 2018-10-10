@@ -1,49 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presenters.ReadingsFragment">
 
-    <TextView
-        android:id="@+id/temperature_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+    <!--<TextView-->
+    <!--android:id="@+id/temperature_tv"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--tools:text="Temperature: 34\u00B0 "-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/humidity_tv"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--tools:text="Humidity: 34%"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/temperature_tv" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/pressure_tv"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--tools:text="Pressure: 30.26 inHg"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/humidity_tv" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/pm2_5_tv"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--tools:text="PM2.5: 20"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/pressure_tv" />-->
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/temperature_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:layout_marginTop="8dp"
-        tools:text="Temperature: 34\u00B0 "
+        app:layout_constraintBottom_toTopOf="@+id/temperature_label"
+        app:layout_constraintEnd_toStartOf="@+id/humidity_gauge"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxSpeed="50"
+        app:speedLimitTextSize="10dp"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="C\u00B0"
+        app:unitOfMeasurementTextSize="10dp" />
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/humidity_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        app:layout_constraintBottom_toBottomOf="@+id/temperature_gauge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/temperature_gauge"
+        app:maxSpeed="100"
+        app:speedLimitTextSize="10dp"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="%"
+        app:unitOfMeasurementTextSize="10dp" />
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/pressure_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        app:layout_constraintBottom_toTopOf="@+id/pressure_label"
+        app:layout_constraintEnd_toStartOf="@+id/pm25_gauge"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperature_label"
+        app:maxSpeed="50"
+        app:speedLimitTextSize="10dp"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="hPa"
+        app:unitOfMeasurementTextSize="10dp" />
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/pm25_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_gauge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/pressure_gauge"
+        app:maxSpeed="150"
+        app:speedLimitTextSize="10dp"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="μg/m\u00B3"
+        app:unitOfMeasurementTextSize="10dp" />
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/pm10_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pressure_label"
+        app:maxSpeed="150"
+        app:speedLimitTextSize="10dp"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="μg/m\u00B3"
+        app:unitOfMeasurementTextSize="10dp" />
 
     <TextView
-        android:id="@+id/humidity_tv"
+        android:id="@+id/temperature_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        tools:text="Humidity: 34%"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temperature_tv" />
+        android:text="@string/temperature"
+        app:layout_constraintBottom_toTopOf="@+id/pressure_gauge"
+        app:layout_constraintEnd_toEndOf="@+id/temperature_gauge"
+        app:layout_constraintStart_toStartOf="@+id/temperature_gauge"
+        app:layout_constraintTop_toBottomOf="@+id/temperature_gauge" />
 
     <TextView
-        android:id="@+id/pressure_tv"
+        android:id="@+id/humidity_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        tools:text="Pressure: 30.26 inHg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/humidity_tv" />
+        android:text="@string/humidity"
+        app:layout_constraintBottom_toBottomOf="@+id/temperature_label"
+        app:layout_constraintEnd_toEndOf="@+id/humidity_gauge"
+        app:layout_constraintStart_toStartOf="@+id/humidity_gauge" />
 
     <TextView
-        android:id="@+id/pm2_5_tv"
+        android:id="@+id/pressure_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        tools:text="PM2.5: 20"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pressure_tv" />
+        android:text="@string/pressure"
+        app:layout_constraintBottom_toTopOf="@+id/pm10_gauge"
+        app:layout_constraintEnd_toEndOf="@+id/pressure_gauge"
+        app:layout_constraintStart_toStartOf="@+id/pressure_gauge"
+        app:layout_constraintTop_toBottomOf="@+id/pressure_gauge" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pm25"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_label"
+        app:layout_constraintEnd_toEndOf="@+id/pm25_gauge"
+        app:layout_constraintStart_toStartOf="@+id/pm25_gauge" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/pm10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/pm10_gauge"
+        app:layout_constraintStart_toStartOf="@+id/pm10_gauge"
+        app:layout_constraintTop_toBottomOf="@+id/pm10_gauge" />
+
 
 </android.support.constraint.ConstraintLayout>

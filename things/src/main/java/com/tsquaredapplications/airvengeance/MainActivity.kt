@@ -26,7 +26,7 @@ class MainActivity : Activity() {
     companion object {
         private const val SAMPLE_INTERVAL_MS = 10000
         private const val BMX280_I2C_BUS_NAME = "I2C1"
-        private const val HPM_SENSOR_UART_NAME = "UART1"
+        private const val HPM_SENSOR_UART_NAME = "UART0"
     }
 
     private val supportedSensors = HashSet<Int>()
@@ -138,7 +138,7 @@ class MainActivity : Activity() {
             hpmDriver = HpmSensorDriver(HPM_SENSOR_UART_NAME)
             hpmDriver.registerParticleSensor()
         } catch (e: IOException) {
-            Log.e(TAG, "Error registering HPM sensor driver")
+            Log.e(TAG, "Error registering HPM sensor driver\n" + e.stackTrace)
         }
     }
 
@@ -176,7 +176,7 @@ class MainActivity : Activity() {
                 val pressure = (if (toOld(mSensorData.pressureTimestamp))
                     null
                 else
-                    mSensorData.pressure)?.toFloat()
+                    mSensorData.pressure / 33.863886666667)?.toFloat()
                 val pm25 = (if (toOld(mSensorData.particleTimestamp))
                     null
                 else
@@ -207,7 +207,7 @@ class MainActivity : Activity() {
                 //     https://stackoverflow.com/questions/7017069/gps-time-in-android;
 
                 Log.d(TAG, String.format("Logged\n" +
-                        "\tTemperature: %.1f, Humidity: %.1f%%, Pressure: %.1fhPa\n" +
+                        "\tTemperature: %.1f, Humidity: %.1f%%, Pressure: %.1finHg\n" +
                         "\tPM2.5, PM10: %d, %d\n",
                         temperature,
                         humidity,
