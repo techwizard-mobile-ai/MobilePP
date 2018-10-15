@@ -3,6 +3,8 @@ package com.tsquaredapplications.airvengeance
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v7.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.FirebaseApp
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.action_settings -> {
+                if(supportFragmentManager.findFragmentById(R.id.content_frame) !is PreferenceFragment)
                 swapFragments(PreferenceFragment(), true)
             }
         }
