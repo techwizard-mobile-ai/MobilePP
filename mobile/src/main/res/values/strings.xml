@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">AirVengeance</string>
-    <string name="temperature_reading">Temperature: %1$s\u00B0</string>
-    <string name="humidity_reading">Humidity: %1$s</string>
+    <string name="temperature_reading">Temperature: %1$s\u00B0 %2$s</string>
+    <string name="humidity_reading">Humidity: %1$s%%</string>
+    <string name="pressure_reading">Pressure: %1$s inHg</string>
+    <string name="pm25_reading">PM2.5: %1$s</string>
+    <string name="settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="temperature_units_label">Temperature Unit</string>
+    <string name="is_metric_key" translatable="false">is_metric_key</string>
+    <string name="preferences">mobile_preferences</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="pressure">Pressure</string>
+    <string name="pm10">PM 10</string>
+    <string name="pm25">PM 25</string>
 </resources>

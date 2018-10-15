@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "595075121377",
+    "firebase_url": "https://airvengance.firebaseio.com",
+    "project_id": "airvengance",
+    "storage_bucket": "airvengance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595075121377:android:a0dbe655ae51221e",
+        "android_client_info": {
+          "package_name": "com.tsquaredapplications.airvengeance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595075121377-8tl34u2le53h3ud7d7eqf4d921r8o7u0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd21MFyjH-FzZhm9UCQ1R4dCHbWFwSdQo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

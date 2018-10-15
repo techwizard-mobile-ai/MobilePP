@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Units">
+
+        <SwitchPreference
+            android:key="@string/is_metric_key"
+            android:title="@string/temperature_units_label"
+            android:summaryOn="@string/celsius"
+            android:summaryOff="@string/fahrenheit"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+
+
+
+</PreferenceScreen>
