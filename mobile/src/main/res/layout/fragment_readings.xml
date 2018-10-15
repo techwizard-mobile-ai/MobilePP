@@ -47,7 +47,7 @@
     <!--app:layout_constraintTop_toBottomOf="@+id/pressure_tv" />-->
 
     <in.unicodelabs.kdgaugeview.KdGaugeView
-        android:id="@+id/temperature_gauge"
+        android:id="@+id/celsius_temperature_gauge"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_marginTop="8dp"
@@ -56,22 +56,42 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:maxSpeed="50"
+        app:maxSpeed="45"
         app:speedLimitTextSize="10dp"
+        app:speed_limit="32"
         app:speedTextSize="30dp"
         app:unitOfMeasurement="C\u00B0"
+        app:unitOfMeasurementTextSize="10dp" />
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/fahrenheit_temperature_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/temperature_label"
+        app:layout_constraintEnd_toStartOf="@+id/humidity_gauge"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxSpeed="115"
+        app:speed_limit="90"
+        app:speedLimitTextSize="10dp"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="F\u00B0"
         app:unitOfMeasurementTextSize="10dp" />
 
     <in.unicodelabs.kdgaugeview.KdGaugeView
         android:id="@+id/humidity_gauge"
         android:layout_width="125dp"
         android:layout_height="125dp"
-        app:layout_constraintBottom_toBottomOf="@+id/temperature_gauge"
+        app:layout_constraintBottom_toBottomOf="@+id/celsius_temperature_gauge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/temperature_gauge"
+        app:layout_constraintStart_toEndOf="@+id/celsius_temperature_gauge"
         app:maxSpeed="100"
         app:speedLimitTextSize="10dp"
+        app:speed_limit="80"
         app:speedTextSize="30dp"
         app:unitOfMeasurement="%"
         app:unitOfMeasurementTextSize="10dp" />
@@ -87,6 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/temperature_label"
         app:maxSpeed="50"
         app:speedLimitTextSize="10dp"
+        app:speed_limit="35"
         app:speedTextSize="30dp"
         app:unitOfMeasurement="hPa"
         app:unitOfMeasurementTextSize="10dp" />
@@ -99,7 +120,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/pressure_gauge"
-        app:maxSpeed="150"
+        app:maxSpeed="100"
+        app:speed_limit="35"
         app:speedLimitTextSize="10dp"
         app:speedTextSize="30dp"
         app:unitOfMeasurement="μg/m\u00B3"
@@ -115,8 +137,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pressure_label"
-        app:maxSpeed="150"
+        app:maxSpeed="100"
         app:speedLimitTextSize="10dp"
+        app:speed_limit="50"
         app:speedTextSize="30dp"
         app:unitOfMeasurement="μg/m\u00B3"
         app:unitOfMeasurementTextSize="10dp" />
@@ -127,9 +150,9 @@
         android:layout_height="wrap_content"
         android:text="@string/temperature"
         app:layout_constraintBottom_toTopOf="@+id/pressure_gauge"
-        app:layout_constraintEnd_toEndOf="@+id/temperature_gauge"
-        app:layout_constraintStart_toStartOf="@+id/temperature_gauge"
-        app:layout_constraintTop_toBottomOf="@+id/temperature_gauge" />
+        app:layout_constraintEnd_toEndOf="@+id/celsius_temperature_gauge"
+        app:layout_constraintStart_toStartOf="@+id/celsius_temperature_gauge"
+        app:layout_constraintTop_toBottomOf="@+id/celsius_temperature_gauge" />
 
     <TextView
         android:id="@+id/humidity_label"

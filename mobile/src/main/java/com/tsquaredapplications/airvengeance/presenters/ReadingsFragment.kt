@@ -5,13 +5,14 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tsquaredapplications.airvengeance.R
 import com.tsquaredapplications.airvengeance.data.ReadingsViewModel
 import kotlinx.android.synthetic.main.fragment_readings.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ReadingsFragment : Fragment() {
@@ -19,6 +20,11 @@ class ReadingsFragment : Fragment() {
     val viewModel by lazy { ViewModelProviders.of(this).get(ReadingsViewModel::class.java) }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        val s = Stack<Int>()
+        val q = ArrayList<Int>()
+        
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_readings, container, false)
     }
@@ -28,13 +34,30 @@ class ReadingsFragment : Fragment() {
         super.onResume()
         val tempUnitLabel = if(viewModel.isMetric()) 'C' else 'F'
 
+        // Setup temp gauge for preferred metric
+        when (viewModel.isMetric()){
+            true -> {
+                fahrenheit_temperature_gauge.visibility = View.INVISIBLE
+                celsius_temperature_gauge.visibility = View.VISIBLE
+            } false -> {
+                celsius_temperature_gauge.visibility = View.INVISIBLE
+                fahrenheit_temperature_gauge.visibility = View.VISIBLE
+        }
+        }
+
         viewModel.getDataStream().observe(this, Observer {
             it?.let { nonNullList ->
                 val recentData = nonNullList[nonNullList.size - 1]
 
                 recentData.temp?.let { temp->
-                    temperature_gauge.setSpeed(temp)
-                    temperature_gauge.setSpeed(temp)
+                    when(viewModel.isMetric()){
+                        true -> {
+                            celsius_temperature_gauge.setSpeed(viewModel.getTempReading(temp))
+                        }
+                        false -> {
+                            fahrenheit_temperature_gauge.setSpeed(viewModel.getTempReading(temp))
+                        }
+                    }
                 }
 
                 recentData.humidity?.let { humidity ->

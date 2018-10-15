@@ -24,14 +24,13 @@ class ReadingsViewModel(application: Application): AndroidViewModel(application)
         dataRepo = DataRepository()
     }
 
-    fun getPrefs(){
-
+    private fun getPrefs(){
         isMetric = prefs.getBoolean(PreferenceKeys.IS_METRIC_KEY, true)
     }
 
-    fun getTempReading(tempC: Float) = if(isMetric) tempC.toString() else imperialValue(tempC).toString()
+    fun getTempReading(tempC: Float): Float = if(isMetric) tempC else imperialValue(tempC)
 
-    private fun imperialValue(temp: Float)=  ((temp * 9 / 5.0) + 32)
+    private fun imperialValue(temp: Float)=  ((temp * 9 / 5.0) + 32).toFloat()
 
     fun isMetric(): Boolean {
         getPrefs()
