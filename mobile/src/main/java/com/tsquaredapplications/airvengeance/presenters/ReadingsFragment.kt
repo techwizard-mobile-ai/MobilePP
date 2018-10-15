@@ -11,19 +11,13 @@ import android.view.ViewGroup
 import com.tsquaredapplications.airvengeance.R
 import com.tsquaredapplications.airvengeance.data.ReadingsViewModel
 import kotlinx.android.synthetic.main.fragment_readings.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ReadingsFragment : Fragment() {
 
-    val viewModel by lazy { ViewModelProviders.of(this).get(ReadingsViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProviders.of(this).get(ReadingsViewModel::class.java) }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
-        val s = Stack<Int>()
-        val q = ArrayList<Int>()
-        
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_readings, container, false)
@@ -32,25 +26,25 @@ class ReadingsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val tempUnitLabel = if(viewModel.isMetric()) 'C' else 'F'
 
         // Setup temp gauge for preferred metric
-        when (viewModel.isMetric()){
+        when (viewModel.isMetric()) {
             true -> {
                 fahrenheit_temperature_gauge.visibility = View.INVISIBLE
                 celsius_temperature_gauge.visibility = View.VISIBLE
-            } false -> {
+            }
+            false -> {
                 celsius_temperature_gauge.visibility = View.INVISIBLE
                 fahrenheit_temperature_gauge.visibility = View.VISIBLE
-        }
+            }
         }
 
         viewModel.getDataStream().observe(this, Observer {
             it?.let { nonNullList ->
                 val recentData = nonNullList[nonNullList.size - 1]
 
-                recentData.temp?.let { temp->
-                    when(viewModel.isMetric()){
+                recentData.temp?.let { temp ->
+                    when (viewModel.isMetric()) {
                         true -> {
                             celsius_temperature_gauge.setSpeed(viewModel.getTempReading(temp))
                         }

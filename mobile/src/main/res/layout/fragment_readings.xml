@@ -6,46 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".presenters.ReadingsFragment">
 
-    <!--<TextView-->
-    <!--android:id="@+id/temperature_tv"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--tools:text="Temperature: 34\u00B0 "-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/humidity_tv"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--tools:text="Humidity: 34%"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/temperature_tv" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/pressure_tv"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--tools:text="Pressure: 30.26 inHg"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/humidity_tv" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/pm2_5_tv"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--tools:text="PM2.5: 20"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/pressure_tv" />-->
-
     <in.unicodelabs.kdgaugeview.KdGaugeView
         android:id="@+id/celsius_temperature_gauge"
         android:layout_width="125dp"
