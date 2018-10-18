@@ -1,4 +1,4 @@
-<resources tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">AirVengeance</string>
     <string name="temperature_reading">Temperature: %1$s\u00B0 %2$s</string>
     <string name="humidity_reading">Humidity: %1$s%%</string>
@@ -100,5 +100,8 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="indoor">Indoor</string>
+    <string name="outside">Outside</string>
+    <string name="history">History</string>
 
 </resources>

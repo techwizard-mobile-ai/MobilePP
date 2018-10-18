@@ -1,10 +1,12 @@
 package com.tsquaredapplications.airvengeance.presenters
 
 
+
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +41,7 @@ class ReadingsFragment : Fragment() {
             }
         }
 
-        viewModel.getDataStream().observe(this, Observer {
+        viewModel.getDataStream().observe(this,  Observer{
             it?.let { nonNullList ->
                 val recentData = nonNullList[nonNullList.size - 1]
 
