@@ -5,16 +5,35 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
-import com.google.firebase.FirebaseApp
+import com.tsquaredapplications.airvengeance.presenters.HistoryFragment
+import com.tsquaredapplications.airvengeance.presenters.OutdoorReadingsFragment
 import com.tsquaredapplications.airvengeance.presenters.PreferenceFragment
 import com.tsquaredapplications.airvengeance.presenters.ReadingsFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        FirebaseApp.initializeApp(this)
+
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.nav_history -> {
+                    swapFragments(HistoryFragment(), true)
+                    true
+                }
+                R.id.nav_home_readings ->{
+                    swapFragments(ReadingsFragment(), true)
+                    true
+                }
+                R.id.nav_outdoor_readings -> {
+                    swapFragments(OutdoorReadingsFragment(), true)
+                    true
+                }
+                else -> {false}
+            }
+        }
 
         // load readings fragment by default
         swapFragments(ReadingsFragment(), true)
