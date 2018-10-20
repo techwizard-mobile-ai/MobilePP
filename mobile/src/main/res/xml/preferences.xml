@@ -66,6 +66,13 @@
             android:defaultValue="25"
             android:inputType="number"/>
 
+        <EditTextPreference
+            android:key="@string/time_interval_sec"
+            android:summary="Tap to Change Time Between Sensor Readings"
+            android:title="Time Between Readings (Seconds)"
+            android:defaultValue="10"
+            android:inputType="number"/>
+
 
     </PreferenceCategory>
 

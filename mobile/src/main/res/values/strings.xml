@@ -28,6 +28,7 @@
     <string name="maximum_press">Maximum Pressure</string>
     <string name="zip_code">Zip Code</string>
     <string name="title_activity_prefs">Preferences</string>
+    <string name="time_interval_sec">Time Between Readings</string>
 
     <!-- Strings related to Settings -->
 

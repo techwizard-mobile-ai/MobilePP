@@ -7,8 +7,7 @@ import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceManager
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat
 import com.tsquaredapplications.airvengeance.R
-import com.tsquaredapplications.airvengeance.R.string.minimum_temp
-import com.tsquaredapplications.airvengeance.R.string.preferences
+import com.tsquaredapplications.airvengeance.R.string.*
 
 
 class PreferenceFragment : PreferenceFragmentCompat() {
@@ -23,13 +22,14 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         val minPress = findPreference(getString(R.string.minimum_press))
         val maxPress = findPreference(getString(R.string.maximum_press))
         val zipCode = findPreference(getString(R.string.zip_code))
+        val timeInterval = findPreference("Time Between Readings")
+
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
 
 
         val mT = prefs.getString(getString(R.string.minimum_temp),"10")
         minTemp.setTitle("Minimum Temperature : $mT" )
-
 
         val MT = prefs.getString(getString(R.string.maximum_temp),"15")
         maxTemp.setTitle("Maximum Temperature : $MT" )
@@ -48,6 +48,9 @@ class PreferenceFragment : PreferenceFragmentCompat() {
 
         val zip = prefs.getString(getString(R.string.zip_code),"14127")
         zipCode.setTitle("Zip Code : $zip")
+
+        val time = prefs.getString("Time Between Readings","10")
+        timeInterval.setTitle("Time Between Readings : $time_interval_sec")
 
     }
 
