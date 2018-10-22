@@ -1,10 +1,17 @@
 package com.tsquaredapplications.airvengeance
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tsquaredapplications.airvengeance.presenters.HistoryFragment
 import com.tsquaredapplications.airvengeance.presenters.OutdoorReadingsFragment
 import com.tsquaredapplications.airvengeance.presenters.PreferenceFragment
@@ -13,30 +20,22 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        navController = findNavController(R.id.nav_host)
 
-        bottom_navigation.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.nav_history -> {
-                    swapFragments(HistoryFragment(), true)
-                    true
-                }
-                R.id.nav_home_readings ->{
-                    swapFragments(ReadingsFragment(), true)
-                    true
-                }
-                R.id.nav_outdoor_readings -> {
-                    swapFragments(OutdoorReadingsFragment(), true)
-                    true
-                }
-                else -> {false}
-            }
-        }
+        setupNavigation()
+    }
 
-        // load readings fragment by default
-        swapFragments(ReadingsFragment(), true)
+    private fun setupNavigation() {
+
+        NavigationUI.setupWithNavController(bottom_navigation, navController)
+
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,28 +46,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.action_settings -> {
-                if(supportFragmentManager.findFragmentById(R.id.content_frame) !is PreferenceFragment)
-                swapFragments(PreferenceFragment(), true)
+                NavigationUI.onNavDestinationSelected(item, navController)
             }
         }
         return true
-    }
-
-    fun swapFragments(fragment: Fragment, addToBackStack: Boolean) {
-        when (addToBackStack) {
-            true -> {
-                supportFragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, fragment)
-                        .addToBackStack(null)
-                        .commit()
-            }
-            false -> {
-                supportFragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, fragment)
-                        .disallowAddToBackStack()
-                        .commit()
-            }
-        }
     }
 }
 

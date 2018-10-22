@@ -2,7 +2,7 @@ package com.tsquaredapplications.airvengeance.presenters
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +17,4 @@ class OutdoorReadingsFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_outdoor_readings, container, false)
     }
-
-
 }

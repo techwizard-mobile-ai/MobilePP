@@ -1,7 +1,7 @@
 package com.tsquaredapplications.airvengeance.data
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.*
 import com.tsquaredapplications.airvengeance.util.FirebaseUtil
 

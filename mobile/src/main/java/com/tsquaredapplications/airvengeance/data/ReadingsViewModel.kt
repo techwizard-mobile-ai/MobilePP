@@ -1,9 +1,9 @@
 package com.tsquaredapplications.airvengeance.data
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.tsquaredapplications.airvengeance.R
