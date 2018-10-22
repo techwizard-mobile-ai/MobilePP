@@ -4,6 +4,7 @@
     <string name="humidity_reading">Humidity: %1$s%%</string>
     <string name="pressure_reading">Pressure: %1$s inHg</string>
     <string name="pm25_reading">PM2.5: %1$s</string>
+    <string name="pm10_reading">PM10: %1$s</string>
     <string name="settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->

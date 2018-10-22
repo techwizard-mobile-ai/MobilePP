@@ -31,11 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-
         NavigationUI.setupWithNavController(bottom_navigation, navController)
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

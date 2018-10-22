@@ -16,6 +16,7 @@ import android.os.SystemClock
 import android.os.Handler
 import com.tsquaredapplications.airvengeance.objects.Data
 import com.tsquaredapplications.airvengeance.objects.Repository
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -90,7 +91,6 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         supportedSensors.add(Sensor.TYPE_AMBIENT_TEMPERATURE)
         supportedSensors.add(Sensor.TYPE_RELATIVE_HUMIDITY)
         supportedSensors.add(Sensor.TYPE_PRESSURE)
@@ -186,25 +186,6 @@ class MainActivity : Activity() {
                 else
                     mSensorData.pm10)?.toInt()
 
-                // TODO: Fix time issue in next developer preview.
-                //
-                // There isn't a *good* way to set the system time in the latest developer
-                // preview (DP5.1), if the device is offline:
-                //     https://issuetracker.google.com/issues/64426912
-                //
-                // Since our device may not have network connectivity for extended periods of time
-                // (and with possible reboots in between), we need some mechanism of getting the
-                // time without network connectivity.  Otherwise the system time will be close to
-                // January 1st, 2009 00:00 UTC
-                //
-                // So, we log the time delivered in the location update (from the GPS), and only
-                // log data using these timestamps.  This is fine, since we're only interested in
-                // logging data when we have a GPS fix anyway.
-                //
-                // The semantics of the what the time returned in location updates should be
-                // is somewhat confusing.  In practice, we will get a usable time because of the
-                // way we're using Location Services with GPS as a source:
-                //     https://stackoverflow.com/questions/7017069/gps-time-in-android;
 
                 Log.d(TAG, String.format("Logged\n" +
                         "\tTemperature: %.1f, Humidity: %.1f%%, Pressure: %.1finHg\n" +
