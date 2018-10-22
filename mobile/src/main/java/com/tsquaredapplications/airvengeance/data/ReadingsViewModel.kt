@@ -17,10 +17,7 @@ class ReadingsViewModel(application: Application): AndroidViewModel(application)
     private val dataRepo: DataRepository
 
     init {
-
         isMetric = prefs.getBoolean(isMetricKey, true)
-
-
         dataRepo = DataRepository()
     }
 

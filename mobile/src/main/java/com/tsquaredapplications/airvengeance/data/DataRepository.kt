@@ -1,6 +1,6 @@
 package com.tsquaredapplications.airvengeance.data
 
-import androidx.lifecycle.LiveData
+
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.*
 import com.tsquaredapplications.airvengeance.util.FirebaseUtil
@@ -10,7 +10,6 @@ class DataRepository {
     private var dataStream = MutableLiveData<List<Data>>()
 
     init {
-
         database.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -27,7 +26,6 @@ class DataRepository {
                 }
                 dataStream.value = data
             }
-
         })
     }
 
