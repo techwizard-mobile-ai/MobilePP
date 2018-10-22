@@ -43,6 +43,8 @@ dependencies {
 
     implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha06"
     implementation "android.arch.navigation:navigation-ui-ktx:1.0.0-alpha05"
+
+    implementation 'com.jjoe64:graphview:4.2.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -24,4 +24,10 @@
         android:id="@+id/action_settings"
         android:name="com.tsquaredapplications.airvengeance.presenters.PreferenceFragment"
         android:label="PreferenceFragment" />
+    <fragment
+        android:id="@+id/nav_graph"
+        android:name="com.tsquaredapplications.airvengeance.presenters.GraphFragment"
+        android:label="fragment_graph"
+        tools:layout="@layout/fragment_graph" />
+
 </navigation>

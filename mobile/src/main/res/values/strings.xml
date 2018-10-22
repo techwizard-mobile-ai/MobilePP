@@ -105,5 +105,15 @@
     <string name="indoor">Indoor</string>
     <string name="outside">Outside</string>
     <string name="history">History</string>
+    <string name="trend">Trend</string>
+
+
+    <string-array name="graph_choices">
+        <item>Temperature</item>
+        <item>Humidity</item>
+        <item>Pressure</item>
+        <item>PM 2.5</item>
+        <item>PM 10</item>
+    </string-array>
 
 </resources>

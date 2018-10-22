@@ -15,5 +15,10 @@
         android:title="@string/history"
         android:icon="@drawable/ic_history"/>
 
+    <item
+        android:id="@+id/nav_graph"
+        android:title="@string/trend"
+        android:icon="@drawable/ic_graph"/>
+
 
 </menu>
