@@ -14,10 +14,15 @@ import android.util.Log
 import java.io.IOException
 import android.os.SystemClock
 import android.os.Handler
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.tsquaredapplications.airvengeance.objects.Data
 import com.tsquaredapplications.airvengeance.objects.Repository
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.concurrent.timer
 
 
 private val TAG = MainActivity::class.java.simpleName
@@ -25,7 +30,7 @@ private val TAG = MainActivity::class.java.simpleName
 class MainActivity : Activity() {
 
     companion object {
-        private const val SAMPLE_INTERVAL_MS = 10000
+        var sampleIntervalMs = 10000
         private const val BMX280_I2C_BUS_NAME = "I2C1"
         private const val HPM_SENSOR_UART_NAME = "UART0"
     }
@@ -98,6 +103,23 @@ class MainActivity : Activity() {
 
         repo = Repository()
 
+        // get interval from db
+        val dbRef = FirebaseDatabase.getInstance().reference
+                .child("TIMER")
+                .addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onCancelled(p0: DatabaseError) {
+                        // Do nothing
+                    }
+
+                    override fun onDataChange(p0: DataSnapshot) {
+                        val timerValue = p0.getValue(Int::class.java)
+                        timerValue?.let {
+                            sampleIntervalMs = it
+                        }
+                    }
+
+                })
+
         handler = Handler()
         registerSensors()
         startDataCollection()
@@ -160,7 +182,7 @@ class MainActivity : Activity() {
         val doDataCollection = object : Runnable {
             private fun toOld(timestamp: Long): Boolean {
                 val timestampMs = TimeUnit.NANOSECONDS.toMillis(timestamp)
-                return SystemClock.uptimeMillis() - timestampMs > SAMPLE_INTERVAL_MS
+                return SystemClock.uptimeMillis() - timestampMs > sampleIntervalMs
             }
 
             override fun run() {
@@ -200,11 +222,11 @@ class MainActivity : Activity() {
 
 
                 handler.postAtTime(this, doSampleToken,
-                        SystemClock.uptimeMillis() + SAMPLE_INTERVAL_MS)
+                        SystemClock.uptimeMillis() + sampleIntervalMs)
             }
         }
         handler.postAtTime(doDataCollection, doSampleToken,
-                SystemClock.uptimeMillis() + SAMPLE_INTERVAL_MS)
+                SystemClock.uptimeMillis() + sampleIntervalMs)
     }
 
     private fun stopDataCollection() {

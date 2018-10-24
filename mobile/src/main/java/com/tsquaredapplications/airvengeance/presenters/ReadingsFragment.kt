@@ -25,7 +25,6 @@ class ReadingsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_readings, container, false)
     }
 
-
     override fun onResume() {
         super.onResume()
 
