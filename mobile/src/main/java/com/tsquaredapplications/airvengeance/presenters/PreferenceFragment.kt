@@ -1,18 +1,42 @@
 package com.tsquaredapplications.airvengeance.presenters
 
-
-import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.preference.Preference
 import androidx.preference.PreferenceManager
+import com.google.firebase.database.FirebaseDatabase
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat
 import com.tsquaredapplications.airvengeance.R
-import com.tsquaredapplications.airvengeance.R.string.*
 
 
-class PreferenceFragment : PreferenceFragmentCompat() {
+class PreferenceFragment : PreferenceFragmentCompat(),
+SharedPreferences.OnSharedPreferenceChangeListener
+{
+    override fun onResume() {
+        super.onResume()
+        preferenceScreen.sharedPreferences
+                .registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        preferenceScreen.sharedPreferences
+                .unregisterOnSharedPreferenceChangeListener(this)
+    }
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
+        //monitor changes to preferences here
+        val timer = getString(R.string.time_interval_sec)
+        if (key == timer) {//if the timer changes
+            //send to firebase
+            6
+            val dbRef = FirebaseDatabase.getInstance().reference
+                    .child("TIMER")
+                    .setValue(sharedPreferences.getString(timer, "10"))
+
+        }
+    }
+
+
     override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
-
         addPreferencesFromResource(R.xml.preferences)
 
         val minTemp = findPreference(getString(R.string.minimum_temp))
@@ -49,13 +73,9 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         val zip = prefs.getString(getString(R.string.zip_code),"14127")
         zipCode.setTitle("Zip Code : $zip")
 
-        val time = prefs.getString("Time Between Readings","10")
-        timeInterval.setTitle("Time Between Readings : $time_interval_sec")
-
+        val time = prefs.getString(getString(R.string.time_interval_sec),"10")
+        timeInterval.setTitle("Time Between Readings : $time")
     }
-
-
-
 
 
 
