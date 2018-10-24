@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
     }
 
+
     private fun setupNavigation() {
         NavigationUI.setupWithNavController(bottom_navigation, navController)
     }
