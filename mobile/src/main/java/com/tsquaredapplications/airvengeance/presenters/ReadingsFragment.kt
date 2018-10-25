@@ -40,6 +40,7 @@ class ReadingsFragment : Fragment() {
             }
         }
 
+
         viewModel.getDataStream().observe(this,  Observer{
             it?.let { nonNullList ->
                 val recentData = nonNullList[nonNullList.size - 1]
