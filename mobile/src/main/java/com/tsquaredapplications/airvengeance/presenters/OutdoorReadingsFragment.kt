@@ -1,7 +1,6 @@
 package com.tsquaredapplications.airvengeance.presenters
 
-
-
+import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,21 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.preference.PreferenceManager
 import com.tsquaredapplications.airvengeance.R
-import com.tsquaredapplications.airvengeance.R.id.*
 import com.tsquaredapplications.airvengeance.data.ReadingsViewModel
 import kotlinx.android.synthetic.main.fragment_readings.*
-import java.math.RoundingMode
 import java.net.URL
 import java.util.ArrayList
-import java.text.DecimalFormat
 
-
+lateinit var prefs: SharedPreferences
 class OutdoorReadingsFragment : Fragment() {
 
-    private val viewModel by lazy { ViewModelProviders.of(this).get(ReadingsViewModel::class.java) }
+    val viewModel by lazy { ViewModelProviders.of(this).get(ReadingsViewModel::class.java) }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        prefs = PreferenceManager.getDefaultSharedPreferences(activity)
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_readings, container, false)
     }
@@ -47,8 +46,8 @@ class OutdoorReadingsFragment : Fragment() {
         task.execute()
     }
 
-
     fun updateUI(data : ArrayList<String>){
+        val tempUnitLabel = if(viewModel.isMetric()) 'C' else 'F'
         when(viewModel.isMetric()){
             true -> {
                 val cTemp = (data[0].toDouble() - 32) * 5 / 9
@@ -67,7 +66,8 @@ class OutdoorReadingsFragment : Fragment() {
         override fun doInBackground(vararg params: Int?): ArrayList<String> {
             val tph = ArrayList<String>()
             val apiKey = "f8c7615401fe9cbca15ce07b8241bd39"
-            val testZipCode = "14224,us"
+
+            val testZipCode = "" + prefs.getString("Zip Code", "14224") + ",us"
             val urlString = "https://api.openweathermap.org/data/2.5/weather?q=$testZipCode&units=imperial&appid=$apiKey"
             val result = URL(urlString).readText()
             val resultToString = result
@@ -85,7 +85,6 @@ class OutdoorReadingsFragment : Fragment() {
                 updateUI(it)
             }
         }
-
     }
 }
 
