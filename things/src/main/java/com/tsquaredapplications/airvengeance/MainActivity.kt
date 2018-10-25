@@ -104,7 +104,7 @@ class MainActivity : Activity() {
         repo = Repository()
 
         // get interval from db
-        val dbRef = FirebaseDatabase.getInstance().reference
+        FirebaseDatabase.getInstance().reference
                 .child("TIMER")
                 .addListenerForSingleValueEvent(object : ValueEventListener{
                     override fun onCancelled(p0: DatabaseError) {

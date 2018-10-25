@@ -15,7 +15,6 @@ data class TimeStamp(val day: Int = 0,
                      val second: Int = 0) :
         Comparable<TimeStamp> {
 
-
     override fun compareTo(other: TimeStamp): Int {
         return when {
             other.year == year ->
@@ -52,7 +51,7 @@ data class TimeStamp(val day: Int = 0,
 
     companion object {
         fun getInstance(): TimeStamp {
-            val cal = Calendar.getInstance()
+            val cal = Calendar.getInstance(TimeZone.getTimeZone("EST"))
             return TimeStamp(day = cal.get(Calendar.DAY_OF_MONTH),
                     month = cal.get(Calendar.MONTH),
                     year = cal.get(Calendar.YEAR),
@@ -73,7 +72,9 @@ data class TimeStamp(val day: Int = 0,
                 else -> "${timestamp.minute}"
             }
 
-            return "$hour:$minute"
+            val label = if (timestamp.hour >= 12) "pm" else "am"
+
+            return "$hour:$minute $label"
 
         }
     }

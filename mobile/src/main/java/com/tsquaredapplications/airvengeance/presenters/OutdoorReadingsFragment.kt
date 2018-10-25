@@ -21,7 +21,7 @@ import java.text.DecimalFormat
 
 class OutdoorReadingsFragment : Fragment() {
 
-    val viewModel by lazy { ViewModelProviders.of(this).get(ReadingsViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProviders.of(this).get(ReadingsViewModel::class.java) }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -49,21 +49,6 @@ class OutdoorReadingsFragment : Fragment() {
 
 
     fun updateUI(data : ArrayList<String>){
-        val tempUnitLabel = if(viewModel.isMetric()) 'C' else 'F'
-//        temperature_tv.text = when(viewModel.isMetric()){
-//            true -> {
-//
-//                val df = DecimalFormat("#.##")
-//                df.roundingMode = RoundingMode.CEILING
-//
-//
-//                getString(R.string.temperature_reading,df.format(((data[0].toDouble()-32)*5/9)).toString(),if(viewModel.isMetric())'C' else 'F')
-//
-//            }
-//            false ->{
-//                getString(R.string.temperature_reading,data[0],if(viewModel.isMetric())'C' else 'F')
-//            }
-//        }
         when(viewModel.isMetric()){
             true -> {
                 val cTemp = (data[0].toDouble() - 32) * 5 / 9

@@ -73,7 +73,9 @@ data class TimeStamp(val day: Int = 0,
                 else -> "${timestamp.minute}"
             }
 
-            return "$hour:$minute"
+            val label = if (timestamp.hour >= 12) "pm" else "am"
+
+            return "$hour:$minute $label"
 
         }
     }
