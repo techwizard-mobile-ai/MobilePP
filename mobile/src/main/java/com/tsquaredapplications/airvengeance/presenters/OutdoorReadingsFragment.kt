@@ -15,9 +15,9 @@ import kotlinx.android.synthetic.main.fragment_readings.*
 import java.net.URL
 import java.util.ArrayList
 
-lateinit var prefs: SharedPreferences
-class OutdoorReadingsFragment : Fragment() {
 
+class OutdoorReadingsFragment : Fragment() {
+    lateinit var prefs: SharedPreferences
     val viewModel by lazy { ViewModelProviders.of(this).get(ReadingsViewModel::class.java) }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

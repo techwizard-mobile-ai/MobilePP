@@ -112,9 +112,9 @@ class MainActivity : Activity() {
                     }
 
                     override fun onDataChange(p0: DataSnapshot) {
-                        val timerValue = p0.getValue(Int::class.java)
+                        val timerValue = p0.getValue(String::class.java)
                         timerValue?.let {
-                            sampleIntervalMs = it
+                            sampleIntervalMs = it.toInt()
                         }
                     }
 

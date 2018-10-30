@@ -8,26 +8,27 @@
     <fragment
         android:id="@+id/nav_outdoor_readings"
         android:name="com.tsquaredapplications.airvengeance.presenters.OutdoorReadingsFragment"
-        android:label="fragment_outdoor_readings"
-        tools:layout="@layout/fragment_outdoor_readings" />
+        android:label="@string/outdoor_readings_fragment_title"
+        tools:layout="@layout/fragment_outdoor_readings"
+      />
     <fragment
         android:id="@+id/nav_home_readings"
         android:name="com.tsquaredapplications.airvengeance.presenters.ReadingsFragment"
-        android:label="fragment_readings"
+        android:label="Indoor Readings"
         tools:layout="@layout/fragment_readings" />
     <fragment
         android:id="@+id/nav_history"
         android:name="com.tsquaredapplications.airvengeance.presenters.HistoryFragment"
-        android:label="fragment_history"
+        android:label="@string/history_fragment_title"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/action_settings"
         android:name="com.tsquaredapplications.airvengeance.presenters.PreferenceFragment"
-        android:label="PreferenceFragment" />
+        android:label="Settings" />
     <fragment
         android:id="@+id/nav_graph"
         android:name="com.tsquaredapplications.airvengeance.presenters.GraphFragment"
-        android:label="fragment_graph"
+        android:label="Graph"
         tools:layout="@layout/fragment_graph" />
 
 </navigation>
