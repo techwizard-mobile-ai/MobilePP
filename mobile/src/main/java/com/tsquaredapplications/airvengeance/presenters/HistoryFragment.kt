@@ -37,7 +37,6 @@ class HistoryFragment : Fragment() {
         Log.i("HistoryFragment", "onViewCreated: IN CREATE VIEW")
 
 
-
         val observer = viewModel.getDataStream()
         observer.observe(this, object : Observer<List<Data>> {
             override fun onChanged(t: List<Data>?) {
