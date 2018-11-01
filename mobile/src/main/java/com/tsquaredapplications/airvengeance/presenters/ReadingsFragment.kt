@@ -2,20 +2,28 @@ package com.tsquaredapplications.airvengeance.presenters
 
 
 
+import android.os.AsyncTask
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
+import android.os.SystemClock
 import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import com.tsquaredapplications.airvengeance.MainActivity
 import com.tsquaredapplications.airvengeance.R
 import com.tsquaredapplications.airvengeance.data.ReadingsViewModel
 import kotlinx.android.synthetic.main.fragment_readings.*
 
 
 class ReadingsFragment : Fragment() {
+
+    lateinit var handler: Handler
 
     private val viewModel by lazy { ViewModelProviders.of(this).get(ReadingsViewModel::class.java) }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +35,6 @@ class ReadingsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         // Setup temp gauge for preferred metric
         when (viewModel.isMetric()) {
             true -> {
