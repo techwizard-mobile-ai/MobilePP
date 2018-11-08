@@ -9,13 +9,16 @@
         android:id="@+id/nav_outdoor_readings"
         android:name="com.tsquaredapplications.airvengeance.presenters.OutdoorReadingsFragment"
         android:label="@string/outdoor_readings_fragment_title"
-        tools:layout="@layout/fragment_outdoor_readings"
-      />
+        tools:layout="@layout/fragment_outdoor_readings" />
     <fragment
         android:id="@+id/nav_home_readings"
         android:name="com.tsquaredapplications.airvengeance.presenters.ReadingsFragment"
         android:label="Indoor Readings"
-        tools:layout="@layout/fragment_readings" />
+        tools:layout="@layout/fragment_readings">
+        <action
+            android:id="@+id/action_home_readings_to_stats"
+            app:destination="@id/readingStatsFragment" ><argument android:defaultValue="0" android:name="readingType"/></action>
+    </fragment>
     <fragment
         android:id="@+id/nav_history"
         android:name="com.tsquaredapplications.airvengeance.presenters.HistoryFragment"
@@ -30,5 +33,15 @@
         android:name="com.tsquaredapplications.airvengeance.presenters.GraphFragment"
         android:label="Graph"
         tools:layout="@layout/fragment_graph" />
+    <fragment
+        android:id="@+id/readingStatsFragment"
+        android:name="com.tsquaredapplications.airvengeance.presenters.ReadingStatsFragment"
+        android:label="fragment_reading_stats"
+        tools:layout="@layout/fragment_reading_stats">
+        <argument
+            android:name="readingType"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

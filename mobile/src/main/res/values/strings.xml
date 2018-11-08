@@ -111,6 +111,9 @@
     <string name="inddor_readings">Indoor Readings</string>
     <string name="outdoor_readings_fragment_title">Outdoor Readings</string>
     <string name="history_fragment_title">History</string>
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
 
 
     <string-array name="graph_choices">

@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.tsquaredapplications.airvengeance.MainActivity
 import com.tsquaredapplications.airvengeance.R
 import com.tsquaredapplications.airvengeance.data.ReadingsViewModel
@@ -33,6 +34,15 @@ class ReadingsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_readings, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fahrenheit_temperature_gauge.setOnClickListener(GaugeListener(0, view))
+        celsius_temperature_gauge.setOnClickListener(GaugeListener(0, view))
+        humidity_gauge.setOnClickListener((GaugeListener(1, view)))
+        pressure_gauge.setOnClickListener((GaugeListener(2,view)))
+        pm25_gauge.setOnClickListener((GaugeListener(3,view)))
+        pm10_gauge.setOnClickListener(GaugeListener(4, view))
+    }
     override fun onResume() {
         super.onResume()
         // Setup temp gauge for preferred metric
@@ -79,5 +89,15 @@ class ReadingsFragment : Fragment() {
                 }
             }
         })
+    }
+
+
+    class GaugeListener(val type: Int, val view:View): View.OnClickListener{
+        override fun onClick(v: View?) {
+            val action =
+                    ReadingsFragmentDirections.actionHomeReadingsToStats().setReadingType(type)
+
+            view.findNavController().navigate(action)
+        }
     }
 }

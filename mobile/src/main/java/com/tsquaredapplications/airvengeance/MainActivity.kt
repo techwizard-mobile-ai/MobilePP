@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.nav_host)
         setupNavigation()
-        setupActionBarWithNavController(navController)
+
 
     }
 
