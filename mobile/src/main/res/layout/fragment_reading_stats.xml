@@ -21,7 +21,98 @@
         app:speedTextSize="30dp"
         app:speed_limit="32"
         app:unitOfMeasurement="C\u00B0"
-        app:unitOfMeasurementTextSize="10dp" />
+        app:unitOfMeasurementTextSize="10dp"
+        android:visibility="invisible"/>
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/fahrenheit_temperature_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxSpeed="115"
+        app:speed_limit="90"
+        app:speedLimitTextSize="10dp"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="F\u00B0"
+        app:unitOfMeasurementTextSize="10dp"
+        android:visibility="invisible"/>
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/humidity_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxSpeed="100"
+        app:speedLimitTextSize="10dp"
+        app:speed_limit="80"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="%"
+        app:unitOfMeasurementTextSize="10dp"
+        android:visibility="invisible"/>
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/pressure_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxSpeed="50"
+        app:speedLimitTextSize="10dp"
+        app:speed_limit="35"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="hPa"
+        app:unitOfMeasurementTextSize="10dp"
+        android:visibility="invisible"/>
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/pm25_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxSpeed="100"
+        app:speed_limit="35"
+        app:speedLimitTextSize="10dp"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="μg/m\u00B3"
+        android:visibility="invisible"/>
+
+    <in.unicodelabs.kdgaugeview.KdGaugeView
+        android:id="@+id/pm10_gauge"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxSpeed="100"
+        app:speedLimitTextSize="10dp"
+        app:speed_limit="50"
+        app:speedTextSize="30dp"
+        app:unitOfMeasurement="μg/m\u00B3"
+        app:unitOfMeasurementTextSize="10dp"
+        android:visibility="invisible"/>
+
 
     <TextView
         android:id="@+id/metric_label"

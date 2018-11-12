@@ -10,6 +10,7 @@ import com.tsquaredapplications.airvengeance.R
 import com.tsquaredapplications.airvengeance.data.Data
 import com.tsquaredapplications.airvengeance.data.TimeStamp
 import org.w3c.dom.Text
+import java.util.*
 
 class ReadingsListAdapter(var readingsList: List<Data>, private val isCelsius: Boolean = true, val context: Context) : RecyclerView.Adapter<ReadingsListAdapter.ReadingsViewHolder>() {
 
@@ -26,10 +27,12 @@ class ReadingsListAdapter(var readingsList: List<Data>, private val isCelsius: B
 
     override fun onBindViewHolder(holder: ReadingsViewHolder, position: Int) {
         val currentItem = readingsList[position]
-        val dateString = "${currentItem.timestamp.month}/${currentItem.timestamp.day}/${currentItem.timestamp.year}"
+        val cal = Calendar.getInstance()
+        cal.time = Date(currentItem.timestamp)
+        val dateString = "${cal.get(Calendar.MONTH)}/${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.YEAR)}"
         holder.dateTv.text = dateString
 
-        val timeString = TimeStamp.getTimeDisplay(currentItem.timestamp)
+        val timeString = "${cal.get(Calendar.HOUR_OF_DAY)}:${cal.get(Calendar.MINUTE)}"
         holder.timeTv.text = timeString
 
         holder.temperatureTv.text = context.getString(R.string.temperature_reading, currentItem.temp.toString(), (if (isCelsius) 'C' else 'F'))
