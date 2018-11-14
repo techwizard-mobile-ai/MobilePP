@@ -8,8 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tsquaredapplications.airvengeance.R
 import com.tsquaredapplications.airvengeance.data.Data
-import com.tsquaredapplications.airvengeance.data.TimeStamp
-import org.w3c.dom.Text
 import java.util.*
 
 class ReadingsListAdapter(var readingsList: List<Data>, private val isCelsius: Boolean = true, val context: Context) : RecyclerView.Adapter<ReadingsListAdapter.ReadingsViewHolder>() {
