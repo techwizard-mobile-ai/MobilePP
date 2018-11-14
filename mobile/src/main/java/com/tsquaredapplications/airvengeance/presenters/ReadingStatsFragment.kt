@@ -82,7 +82,6 @@ class ReadingStatsFragment : Fragment() {
         // Chip Group listener
         time_interval_chip_group.setOnCheckedChangeListener { _, i ->
             timeInterval = i
-//            Log.i("ReadingStatsFragment", "onViewCreated: $timeInterval")
             if (i == R.id.day_chip)
                 timeInterval = 0
             else if (i == R.id.week_chip)
