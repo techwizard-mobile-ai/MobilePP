@@ -107,7 +107,15 @@ class ReadingStatsFragment : Fragment() {
         val timeCutoff = when (intervalType) {
             0 -> {
                 // day
-                today.timeInMillis - millisInDay
+
+                val begOfDay = Calendar.getInstance()
+
+                begOfDay.set(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH),
+                        0, 0, 0)
+
+                begOfDay.timeInMillis
+
+
             }
             1 -> {
                 // week
@@ -122,10 +130,7 @@ class ReadingStatsFragment : Fragment() {
         val cutoffDate = Date(timeCutoff)
         val cutoffCal = Calendar.getInstance()
         cutoffCal.time = cutoffDate
-        Log.i("ReadingStatsFragment", "pruneData: Cutoff Date ${cutoffDate.time}")
 
-        val t = Date(today.timeInMillis)
-        Log.i("ReadingStatsFragment", "pruneData:  Today ${t.time}")
         val output = arrayListOf<Float>()
         for (entry in dataList) {
             if (entry.timestamp >= cutoffDate.time) {
@@ -147,6 +152,23 @@ class ReadingStatsFragment : Fragment() {
                     }
                 }
             }
+
+
+        }
+
+        // Set padding if selection is day
+        if (intervalType == 0) {
+            val endOfDay = Calendar.getInstance()
+
+            endOfDay.set(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH),
+                    23, 60, 60)
+
+            val remainingTimeInDay = endOfDay.timeInMillis - today.timeInMillis
+            val timeGoneByInDay = millisInDay - remainingTimeInDay
+            val daySoFarRation = timeGoneByInDay / millisInDay.toFloat()
+            val paddingRight = spark_view.width - Math.round(spark_view.width * daySoFarRation)
+            spark_view.setPadding(spark_view.paddingLeft, spark_view.paddingTop,
+                    paddingRight, spark_view.paddingBottom)
 
 
         }
