@@ -36,6 +36,7 @@ class ReadingStatsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        day_chip.isChecked = true
 
         liveData = viewModel.getDataStream()
         readingType = ReadingStatsFragmentArgs.fromBundle(arguments).readingType
@@ -43,7 +44,7 @@ class ReadingStatsFragment : Fragment() {
         when (readingType) {
             0 -> {
                 metric_label.text = getString(R.string.temperature)
-                when(viewModel.isMetric()){
+                when (viewModel.isMetric()) {
                     true -> {
                         gaugeView = celsius_temperature_gauge
                     }
@@ -81,14 +82,16 @@ class ReadingStatsFragment : Fragment() {
     private fun observe(timeInterval: Int) {
         liveData.removeObservers(this)
         liveData.observe(this, androidx.lifecycle.Observer {
-            val prunedList = pruneData(it, timeInterval)
-            val currentVal = prunedList[prunedList.size - 1]
-            if (readingType == 0){
-               gaugeView.setSpeed(viewModel.getTempReading(currentVal))
-            } else {
-                gaugeView.setSpeed(currentVal)
+            if (!it.isEmpty()) {
+                val prunedList = pruneData(it, timeInterval)
+                val currentVal = prunedList[prunedList.size - 1]
+                if (readingType == 0) {
+                    gaugeView.setSpeed(viewModel.getTempReading(currentVal))
+                } else {
+                    gaugeView.setSpeed(currentVal)
+                }
+                spark_view.adapter = SparkLineAdapter(prunedList)
             }
-            spark_view.adapter = SparkLineAdapter(prunedList)
         })
     }
 

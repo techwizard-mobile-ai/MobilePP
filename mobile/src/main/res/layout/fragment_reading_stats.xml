@@ -12,6 +12,7 @@
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
 
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +22,7 @@
         app:speedTextSize="30dp"
         app:speed_limit="32"
         app:unitOfMeasurement="C\u00B0"
-        app:unitOfMeasurementTextSize="10dp"
-        android:visibility="invisible"/>
+        app:unitOfMeasurementTextSize="10dp" />
 
     <in.unicodelabs.kdgaugeview.KdGaugeView
         android:id="@+id/fahrenheit_temperature_gauge"
@@ -30,17 +30,17 @@
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
 
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxSpeed="115"
-        app:speed_limit="90"
         app:speedLimitTextSize="10dp"
         app:speedTextSize="30dp"
+        app:speed_limit="90"
         app:unitOfMeasurement="F\u00B0"
-        app:unitOfMeasurementTextSize="10dp"
-        android:visibility="invisible"/>
+        app:unitOfMeasurementTextSize="10dp" />
 
     <in.unicodelabs.kdgaugeview.KdGaugeView
         android:id="@+id/humidity_gauge"
@@ -48,17 +48,17 @@
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
 
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxSpeed="100"
         app:speedLimitTextSize="10dp"
-        app:speed_limit="80"
         app:speedTextSize="30dp"
+        app:speed_limit="80"
         app:unitOfMeasurement="%"
-        app:unitOfMeasurementTextSize="10dp"
-        android:visibility="invisible"/>
+        app:unitOfMeasurementTextSize="10dp" />
 
     <in.unicodelabs.kdgaugeview.KdGaugeView
         android:id="@+id/pressure_gauge"
@@ -66,17 +66,17 @@
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
 
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxSpeed="50"
         app:speedLimitTextSize="10dp"
-        app:speed_limit="35"
         app:speedTextSize="30dp"
+        app:speed_limit="35"
         app:unitOfMeasurement="hPa"
-        app:unitOfMeasurementTextSize="10dp"
-        android:visibility="invisible"/>
+        app:unitOfMeasurementTextSize="10dp" />
 
     <in.unicodelabs.kdgaugeview.KdGaugeView
         android:id="@+id/pm25_gauge"
@@ -84,16 +84,16 @@
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
 
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxSpeed="100"
-        app:speed_limit="35"
         app:speedLimitTextSize="10dp"
         app:speedTextSize="30dp"
-        app:unitOfMeasurement="μg/m\u00B3"
-        android:visibility="invisible"/>
+        app:speed_limit="35"
+        app:unitOfMeasurement="μg/m\u00B3" />
 
     <in.unicodelabs.kdgaugeview.KdGaugeView
         android:id="@+id/pm10_gauge"
@@ -101,17 +101,17 @@
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
 
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxSpeed="100"
         app:speedLimitTextSize="10dp"
-        app:speed_limit="50"
         app:speedTextSize="30dp"
+        app:speed_limit="50"
         app:unitOfMeasurement="μg/m\u00B3"
-        app:unitOfMeasurementTextSize="10dp"
-        android:visibility="invisible"/>
+        app:unitOfMeasurementTextSize="10dp" />
 
 
     <TextView
@@ -152,41 +152,45 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/day_chip"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/time_interval_chip_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/day"
-                app:layout_constraintEnd_toStartOf="@+id/week_chip"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/spark_view"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:singleSelection="true"
+                app:chipSpacing="25dp"
+                android:layout_margin="8dp">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/week_chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/week"
-                app:layout_constraintEnd_toStartOf="@+id/month_chip"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/day_chip"
-                app:layout_constraintTop_toBottomOf="@id/spark_view" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/day_chip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/day" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/month_chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/month"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/week_chip"
-                app:layout_constraintTop_toBottomOf="@id/spark_view" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/week_chip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/week" />
 
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/month_chip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/month" />
+
+
+            </com.google.android.material.chip.ChipGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
