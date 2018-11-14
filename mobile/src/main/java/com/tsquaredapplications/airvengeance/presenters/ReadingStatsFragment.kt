@@ -52,34 +52,49 @@ class ReadingStatsFragment : Fragment() {
                         gaugeView = fahrenheit_temperature_gauge
                     }
                 }
-                observe(timeInterval)
+                observe()
             }
             1 -> {
                 metric_label.text = getString(R.string.humidity)
                 gaugeView = humidity_gauge
-                observe(timeInterval)
+                observe()
             }
             2 -> {
                 metric_label.text = getString(R.string.pressure)
                 gaugeView = pressure_gauge
-                observe(timeInterval)
+                observe()
             }
             3 -> {
                 metric_label.text = getString(R.string.pm25)
                 gaugeView = pm25_gauge
-                observe(timeInterval)
+                observe()
             }
             4 -> {
                 metric_label.text = getString(R.string.pm10)
                 gaugeView = pm10_gauge
-                observe(timeInterval)
+                observe()
             }
         }
 
         gaugeView.visibility = View.VISIBLE
+
+
+        // Chip Group listener
+        time_interval_chip_group.setOnCheckedChangeListener { _, i ->
+            timeInterval = i
+//            Log.i("ReadingStatsFragment", "onViewCreated: $timeInterval")
+            if (i == R.id.day_chip)
+                timeInterval = 0
+            else if (i == R.id.week_chip)
+                timeInterval = 1
+            else
+                timeInterval = 2
+
+            observe()
+        }
     }
 
-    private fun observe(timeInterval: Int) {
+    private fun observe() {
         liveData.removeObservers(this)
         liveData.observe(this, androidx.lifecycle.Observer {
             if (!it.isEmpty()) {
@@ -171,6 +186,8 @@ class ReadingStatsFragment : Fragment() {
                     paddingRight, spark_view.paddingBottom)
 
 
+        } else {
+            spark_view.setPadding(0,0,0,0)
         }
         return output
     }
