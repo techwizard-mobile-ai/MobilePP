@@ -38,31 +38,52 @@ class PreferenceMonitor : Runnable, LifecycleOwner, Activity() {
     */
 
         //ALL USER PREFERENCE VALUES
-        lateinit var minTemp: String
-        lateinit var maxTemp: String
-        lateinit var minPress: String
-        lateinit var maxPress: String
-        lateinit var minHumid: String
-        lateinit var maxHumid: String
+        var minTemp: Int
+        var maxTemp: Int
+        var minPress: Int
+        var maxPress: Int
+        var minHumid: Int
+        var maxHumid: Int
 
         var prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        minTemp = prefs.getString(getString(R.string.minimum_temp),"10")
-        maxTemp = prefs.getString(getString(R.string.maximum_temp),"15")
-        minPress = prefs.getString(getString(R.string.minimum_press),"15")
-        maxPress = prefs.getString(getString(R.string.maximum_press),"20")
-        minHumid = prefs.getString(getString(R.string.minimum_humid),"20")
-        maxHumid = prefs.getString(getString(R.string.maximum_humid),"40")
+        minTemp = prefs.getString(getString(R.string.minimum_temp),"10").toInt()
+        maxTemp = prefs.getString(getString(R.string.maximum_temp),"15").toInt()
+        minPress = prefs.getString(getString(R.string.minimum_press),"15").toInt()
+        maxPress = prefs.getString(getString(R.string.maximum_press),"20").toInt()
+        minHumid = prefs.getString(getString(R.string.minimum_humid),"20").toInt()
+        maxHumid = prefs.getString(getString(R.string.maximum_humid),"40").toInt()
 
         //Firebase Values
-        lateinit var fireTemp : String
-        lateinit var firePress : String
-        lateinit var fireHumid : String
+        var fireTemp : Int
+        var firePress : Int
+        var fireHumid : Int
+        //DUMMY VALUES, REPLACE WITH ACTUAL
+        fireTemp = 65
+        firePress = 27
+        fireHumid = 33
 
         //Notifications Setup
         var nManager = NotificationHelper(this)
         //nManager.sendNotification("Air Quality Alert","House is too Hot!")
 
         //Comparing/Sending Notifications
-
+        if (fireTemp < minTemp){ //below temp
+            nManager.sendNotification("Air Quality Alert","Air Temperature is too Cold!")
+        }
+        if (fireTemp > maxTemp){//above temp
+            nManager.sendNotification("Air Quality Alert","Air Temperature is too Hot!")
+        }
+        if (firePress < minPress){//below pressure
+            nManager.sendNotification("Air Quality Alert","Air Pressure is too Low!")
+        }
+        if (firePress > maxPress){//above pressure
+            nManager.sendNotification("Air Quality Alert","Air Pressure is too High!")
+        }
+        if (fireHumid < minHumid){//below humidity
+            nManager.sendNotification("Air Quality Alert","Air Humidity is too Dry!")
+        }
+        if(fireHumid > maxHumid){//above humditiy
+            nManager.sendNotification("Air Quality Alert","Air Humidity is too Humid!")
+        }
     }
 }
