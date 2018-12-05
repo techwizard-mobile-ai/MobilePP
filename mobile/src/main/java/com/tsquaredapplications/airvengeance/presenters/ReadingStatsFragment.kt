@@ -23,7 +23,7 @@ class ReadingStatsFragment : Fragment() {
     private val viewModel by lazy { ViewModelProviders.of(this).get(ReadingsViewModel::class.java) }
     private val millisInDay: Long = 86400000
     var liveData: MutableLiveData<List<Data>> = MutableLiveData()
-    var timeInterval = 0
+    var timeInterval = 2
     private var readingType = 0
     lateinit var gaugeView: KdGaugeView
 
@@ -36,7 +36,7 @@ class ReadingStatsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        day_chip.isChecked = true
+        month_chip.isChecked = true
 
         liveData = viewModel.getDataStream()
         readingType = ReadingStatsFragmentArgs.fromBundle(arguments).readingType
@@ -91,6 +91,7 @@ class ReadingStatsFragment : Fragment() {
 
             observe()
         }
+
     }
 
     private fun observe() {
@@ -98,13 +99,15 @@ class ReadingStatsFragment : Fragment() {
         liveData.observe(this, androidx.lifecycle.Observer {
             if (!it.isEmpty()) {
                 val prunedList = pruneData(it, timeInterval)
-                val currentVal = prunedList[prunedList.size - 1]
-                if (readingType == 0) {
-                    gaugeView.setSpeed(viewModel.getTempReading(currentVal))
-                } else {
-                    gaugeView.setSpeed(currentVal)
+                if (prunedList.isNotEmpty()) {
+                    val currentVal = prunedList[prunedList.size - 1]
+                    if (readingType == 0) {
+                        gaugeView.setSpeed(viewModel.getTempReading(currentVal))
+                    } else {
+                        gaugeView.setSpeed(currentVal)
+                    }
+                    spark_view.adapter = SparkLineAdapter(prunedList)
                 }
-                spark_view.adapter = SparkLineAdapter(prunedList)
             }
         })
     }
@@ -186,7 +189,7 @@ class ReadingStatsFragment : Fragment() {
 
 
         } else {
-            spark_view.setPadding(0,0,0,0)
+            spark_view.setPadding(0, 0, 0, 0)
         }
         return output
     }
