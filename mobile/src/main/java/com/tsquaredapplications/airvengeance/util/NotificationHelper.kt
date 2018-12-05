@@ -27,7 +27,7 @@ internal class NotificationHelper
     }
 
     @SuppressLint("WrongConstant")
-    fun sendNotification(title: String, text: String, url: String){
+    fun sendNotification(title: String, text: String){
 
         val channel = NotificationChannel("default", "notificationChannel", NotificationManager.IMPORTANCE_DEFAULT)
         manager.createNotificationChannel(channel)

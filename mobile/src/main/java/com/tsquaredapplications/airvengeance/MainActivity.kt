@@ -99,23 +99,23 @@ class MainActivity : AppCompatActivity() {
             //Comparing/Sending Notifications
 
             if (fireTemp < minTemp) { //below temp
-                nManager.sendNotification("Air Quality Alert", "Air Temperature is too Cold!", "amazon.com")
+                nManager.sendNotification("Air Quality Alert", "Air Temperature is too Cold!")
             }
             if (fireTemp > maxTemp) {//above temp
-                nManager.sendNotification("Air Quality Alert", "Air Temperature is too Hot!", "amazon.com")
+                nManager.sendNotification("Air Quality Alert", "Air Temperature is too Hot!")
             }
             if (firePress < minPress) {//below pressure
-                nManager.sendNotification("Air Quality Alert", "Air Pressure is too Low!", "amazon.com")
+                nManager.sendNotification("Air Quality Alert", "Air Pressure is too Low!")
             }
             if (firePress > maxPress) {//above pressure
-                nManager.sendNotification("Air Quality Alert", "Air Pressure is too High!", "amazon.com")
+                nManager.sendNotification("Air Quality Alert", "Air Pressure is too High!")
             }
 
             if (fireHumid < minHumid) {//below humidity
-                nManager.sendNotification("Air Quality Alert", "Air Humidity is too Dry!", "amazon.com")
+                nManager.sendNotification("Air Quality Alert", "Air Humidity is too Dry!")
             }
             if (fireHumid > maxHumid) {//above humditiy
-                nManager.sendNotification("Air Quality Alert", "Air Humidity is too Humid!", "amazon.com")
+                nManager.sendNotification("Air Quality Alert", "Air Humidity is too Humid!")
             }
 
         },0,5, TimeUnit.SECONDS)

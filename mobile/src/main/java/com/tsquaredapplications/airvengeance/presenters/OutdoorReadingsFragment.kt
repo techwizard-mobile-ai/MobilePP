@@ -3,6 +3,8 @@ package com.tsquaredapplications.airvengeance.presenters
 import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
+import android.text.TextUtils.split
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,10 +46,11 @@ class OutdoorReadingsFragment : Fragment() {
 
         val task = weatherTask()
         task.execute()
+        val task2 = weatherTask2()
+        task2.execute()
     }
 
     fun updateUI(data : ArrayList<String>){
-        val tempUnitLabel = if(viewModel.isMetric()) 'C' else 'F'
         when(viewModel.isMetric()){
             true -> {
                 val cTemp = (data[0].toDouble() - 32) * 5 / 9
@@ -57,9 +60,14 @@ class OutdoorReadingsFragment : Fragment() {
                 fahrenheit_temperature_gauge.setSpeed(data[0].toFloat())
             }
         }
-        humidity_gauge.setSpeed(data[2].toFloat())
         val pressure = (data[1].toFloat() /  33.863886666667).toFloat()
         pressure_gauge.setSpeed(pressure)
+        humidity_gauge.setSpeed(data[2].toFloat())
+    }
+
+    fun updateUI2(data : ArrayList<String>){
+        pm10_gauge.setSpeed(data[0].toFloat())
+        pm25_gauge.setSpeed(data[1].toFloat())
     }
 
     inner class weatherTask:AsyncTask<Int,Int,ArrayList<String>>(){
@@ -69,13 +77,11 @@ class OutdoorReadingsFragment : Fragment() {
 
             val testZipCode = "" + prefs.getString("Zip Code", "14224") + ",us"
             val urlString = "https://api.openweathermap.org/data/2.5/weather?q=$testZipCode&units=imperial&appid=$apiKey"
-            val result = URL(urlString).readText()
-            val resultToString = result
-            tph.add(0, resultToString.split("temp\":".toRegex(), 2).toTypedArray()[1].split(",".toRegex(), 2).toTypedArray()[0])
-            tph.add(1, resultToString.split("pressure\":".toRegex(), 2).toTypedArray()[1].split(",".toRegex(), 2).toTypedArray()[0])
-            tph.add(2, resultToString.split("humidity\":".toRegex(), 2).toTypedArray()[1].split(",".toRegex(), 2).toTypedArray()[0])
+            val resultStr = URL(urlString).readText()
+            tph.add(0, resultStr.split("temp\":".toRegex(), 2).toTypedArray()[1].split(",".toRegex(), 2).toTypedArray()[0])
+            tph.add(1, resultStr.split("pressure\":".toRegex(), 2).toTypedArray()[1].split(",".toRegex(), 2).toTypedArray()[0])
+            tph.add(2, resultStr.split("humidity\":".toRegex(), 2).toTypedArray()[1].split(",".toRegex(), 2).toTypedArray()[0])
 
-            System.out.println(tph[0]+" press"+ tph[1]+"humid "+tph[2])
             return tph
         }
 
@@ -86,5 +92,23 @@ class OutdoorReadingsFragment : Fragment() {
             }
         }
     }
-}
 
+    inner class weatherTask2:AsyncTask<Int,Int,ArrayList<String>>(){
+        override fun doInBackground(vararg params: Int?): ArrayList<String> {
+            val pmArray = ArrayList<String>()
+            val apiKey = "41f1e1a83522458e97675762a35bc898"
+            val urlString = "https://api.breezometer.com/baqi/?lat=40.7324296&lon=-73.9977264&key=$apiKey"
+            val resultStr = URL(urlString).readText()
+            pmArray.add(0, resultStr.split("pm10\":".toRegex(), 2).toTypedArray()[1].split("concentration\": ".toRegex(),2).toTypedArray()[1].split("\\}".toRegex(),2).toTypedArray()[0])
+            pmArray.add(1, resultStr.split("pm25\":".toRegex(), 2).toTypedArray()[1].split("concentration\": ".toRegex(), 2).toTypedArray()[1].split("\\}".toRegex(), 2).toTypedArray()[0])
+            return pmArray
+        }
+
+        override fun onPostExecute(result: ArrayList<String>?) {
+            super.onPostExecute(result)
+            result?.let {
+                updateUI2(it)
+            }
+        }
+    }
+}
