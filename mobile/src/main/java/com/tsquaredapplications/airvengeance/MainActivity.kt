@@ -1,20 +1,15 @@
 package com.tsquaredapplications.airvengeance
 
 
-import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.Preference
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.work.PeriodicWorkRequest
-import androidx.work.Worker
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -22,11 +17,13 @@ import com.tsquaredapplications.airvengeance.R.NotificationHelper.NotificationHe
 import com.tsquaredapplications.airvengeance.data.Data
 import com.tsquaredapplications.airvengeance.data.DataRepository
 import com.tsquaredapplications.airvengeance.util.FirebaseUtil
-import com.tsquaredapplications.airvengeance.util.NotificationWorker
-import com.tsquaredapplications.airvengeance.util.PreferenceMonitor
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import android.content.Intent
+import android.view.View
+import com.tsquaredapplications.airvengeance.presenters.SensorManager
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -148,6 +145,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    fun openManager(view: View){
+        val intent = Intent(this, SensorManager::class.java)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 }
 
