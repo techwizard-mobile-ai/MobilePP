@@ -58,6 +58,10 @@ dependencies {
 
     // SparkView
     implementation 'com.robinhood.spark:spark:1.2.0'
+
+    def work_version = "1.0.0-alpha06"
+
+    implementation "android.arch.work:work-runtime:$work_version"
 }
 
 apply plugin: 'com.google.gms.google-services'
