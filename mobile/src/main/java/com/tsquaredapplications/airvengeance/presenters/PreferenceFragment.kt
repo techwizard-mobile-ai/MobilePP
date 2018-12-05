@@ -1,11 +1,15 @@
 package com.tsquaredapplications.airvengeance.presenters
 
+import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.firebase.database.FirebaseDatabase
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat
 import com.tsquaredapplications.airvengeance.R
+
 
 
 class PreferenceFragment : PreferenceFragmentCompat(),
@@ -21,6 +25,7 @@ SharedPreferences.OnSharedPreferenceChangeListener
     lateinit var time: String
     lateinit var prefs: SharedPreferences
 
+
     override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preferences)
 
@@ -35,6 +40,7 @@ SharedPreferences.OnSharedPreferenceChangeListener
 
 
         prefs = PreferenceManager.getDefaultSharedPreferences(activity)
+
 
 
         minT = prefs.getString(getString(R.string.minimum_temp),"10")

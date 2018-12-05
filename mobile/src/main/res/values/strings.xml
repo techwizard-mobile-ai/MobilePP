@@ -7,6 +7,11 @@
     <string name="pm10_reading">PM10: %1$s</string>
     <string name="settings">Settings</string>
 
+    <string name="manager_button">Manage</string>
+    <string name="sensor_tyler">Tyler\'s Sensor</string>
+    <string name="new_sensor">Add New Sensor</string>
+    <string name="list_sensors">All Sensors</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="temperature_units_label">Temperature Unit</string>
@@ -123,5 +128,8 @@
         <item>PM 2.5</item>
         <item>PM 10</item>
     </string-array>
+    <string name="title_activity_sensor_manager">SensorManager</string>
+    <string name="action_settings">Settings</string>
+
 
 </resources>

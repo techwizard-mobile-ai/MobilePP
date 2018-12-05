@@ -20,6 +20,13 @@ import com.tsquaredapplications.airvengeance.MainActivity
 import com.tsquaredapplications.airvengeance.R
 import com.tsquaredapplications.airvengeance.data.ReadingsViewModel
 import kotlinx.android.synthetic.main.fragment_readings.*
+import android.content.Intent
+import androidx.core.content.ContextCompat.startActivity
+
+
+
+
+
 
 
 class ReadingsFragment : Fragment() {
