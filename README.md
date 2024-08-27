@@ -1,5 +1,7 @@
-# AirVengeance
+# Mobile
 
+
+This project will be really helpful for the mobile starters.
 Project for CSE 442: Software Engineering 
 
 Course focuses on engineering practices. Specifically developing in sprints and following Agile practices. 
